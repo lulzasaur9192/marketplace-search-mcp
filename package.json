@@ -1,0 +1,45 @@
+{
+  "name": "@lulzasaur9192/marketplace-search-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for searching TCGPlayer trading cards, Reverb music gear, and Thumbtack local services",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "marketplace-search-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "tcgplayer",
+    "trading-cards",
+    "reverb",
+    "music-gear",
+    "thumbtack",
+    "local-services",
+    "marketplace",
+    "search"
+  ],
+  "author": "lulzasaur9192",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lulzasaur9192/marketplace-search-mcp.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "tsx": "^4.19.4",
+    "@types/node": "^22.15.3"
+  }
+}
