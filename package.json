@@ -1,6 +1,6 @@
 {
   "name": "@lulzasaur9192/marketplace-search-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for searching TCGPlayer trading cards, Reverb music gear, and Thumbtack local services",
   "type": "module",
   "main": "dist/index.js",
