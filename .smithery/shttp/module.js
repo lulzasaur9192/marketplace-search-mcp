@@ -20987,87 +20987,95 @@ var StdioServerTransport = class {
 
 // src/index.ts
 var BACKEND_URL = "https://rapidapi-backend-production.up.railway.app";
-var server = new McpServer({
-  name: "marketplace-search",
-  version: "1.0.0"
-});
-server.tool(
-  "search_tcgplayer",
-  "Search trading card prices from TCGPlayer. Covers Magic the Gathering, Pok\xE9mon, Yu-Gi-Oh!, Lorcana, and more. Returns market prices, lowest prices, listing counts, and card images.",
-  {
-    query: external_exports.string().describe('Card name or search term (e.g. "charizard", "black lotus")'),
-    limit: external_exports.number().int().min(1).max(50).default(20).describe("Number of results to return (max 50)")
-  },
-  async ({ query, limit }) => {
-    const url = `${BACKEND_URL}/tcgplayer/search?query=${encodeURIComponent(query)}&limit=${limit}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if (!data.success) {
+function createServer() {
+  const server = new McpServer({
+    name: "marketplace-search",
+    version: "1.0.0"
+  });
+  server.tool(
+    "search_tcgplayer",
+    "Search trading card prices from TCGPlayer. Covers Magic the Gathering, Pok\xE9mon, Yu-Gi-Oh!, Lorcana, and more. Returns market prices, lowest prices, listing counts, and card images.",
+    {
+      query: external_exports.string().describe('Card name or search term (e.g. "charizard", "black lotus")'),
+      limit: external_exports.number().int().min(1).max(50).default(20).describe("Number of results to return (max 50)")
+    },
+    async ({ query, limit }) => {
+      const url = `${BACKEND_URL}/tcgplayer/search?query=${encodeURIComponent(query)}&limit=${limit}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }]
+        };
+      }
       return {
-        isError: true,
-        content: [{ type: "text", text: `Error: ${data.error}` }]
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
       };
     }
-    return {
-      content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
-    };
-  }
-);
-server.tool(
-  "search_reverb",
-  "Search used and new music gear listings from Reverb.com. Find guitars, amps, pedals, synths, and more. Returns prices, condition, seller info, and listing URLs.",
-  {
-    query: external_exports.string().describe(
-      'Instrument or gear search term (e.g. "gibson les paul", "boss ds-1")'
-    ),
-    limit: external_exports.number().int().min(1).max(50).default(20).describe("Number of results to return (max 50)")
-  },
-  async ({ query, limit }) => {
-    const url = `${BACKEND_URL}/reverb/search?query=${encodeURIComponent(query)}&limit=${limit}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if (!data.success) {
+  );
+  server.tool(
+    "search_reverb",
+    "Search used and new music gear listings from Reverb.com. Find guitars, amps, pedals, synths, and more. Returns prices, condition, seller info, and listing URLs.",
+    {
+      query: external_exports.string().describe(
+        'Instrument or gear search term (e.g. "gibson les paul", "boss ds-1")'
+      ),
+      limit: external_exports.number().int().min(1).max(50).default(20).describe("Number of results to return (max 50)")
+    },
+    async ({ query, limit }) => {
+      const url = `${BACKEND_URL}/reverb/search?query=${encodeURIComponent(query)}&limit=${limit}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }]
+        };
+      }
       return {
-        isError: true,
-        content: [{ type: "text", text: `Error: ${data.error}` }]
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
       };
     }
-    return {
-      content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
-    };
-  }
-);
-server.tool(
-  "search_thumbtack",
-  "Search local service professionals from Thumbtack. Find plumbers, electricians, cleaners, and 1000+ other service categories. Returns ratings, reviews, pricing, and hire counts.",
-  {
-    query: external_exports.string().describe(
-      'Service category search term (e.g. "plumbers", "house cleaners")'
-    ),
-    location: external_exports.string().optional().describe(
-      'City/state slug (e.g. "san-francisco/ca", "austin/tx"). Omit for national results.'
-    ),
-    limit: external_exports.number().int().min(1).max(20).default(20).describe("Number of results to return (max 20)")
-  },
-  async ({ query, location, limit }) => {
-    let url = `${BACKEND_URL}/thumbtack/search?query=${encodeURIComponent(query)}&limit=${limit}`;
-    if (location) {
-      url += `&location=${encodeURIComponent(location)}`;
-    }
-    const res = await fetch(url);
-    const data = await res.json();
-    if (!data.success) {
+  );
+  server.tool(
+    "search_thumbtack",
+    "Search local service professionals from Thumbtack. Find plumbers, electricians, cleaners, and 1000+ other service categories. Returns ratings, reviews, pricing, and hire counts.",
+    {
+      query: external_exports.string().describe(
+        'Service category search term (e.g. "plumbers", "house cleaners")'
+      ),
+      location: external_exports.string().optional().describe(
+        'City/state slug (e.g. "san-francisco/ca", "austin/tx"). Omit for national results.'
+      ),
+      limit: external_exports.number().int().min(1).max(20).default(20).describe("Number of results to return (max 20)")
+    },
+    async ({ query, location, limit }) => {
+      let url = `${BACKEND_URL}/thumbtack/search?query=${encodeURIComponent(query)}&limit=${limit}`;
+      if (location) {
+        url += `&location=${encodeURIComponent(location)}`;
+      }
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }]
+        };
+      }
       return {
-        isError: true,
-        content: [{ type: "text", text: `Error: ${data.error}` }]
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
       };
     }
-    return {
-      content: [{ type: "text", text: JSON.stringify(data, null, 2) }]
-    };
-  }
-);
+  );
+  return server;
+}
+function createSandboxServer() {
+  return createServer();
+}
+var index_default = createServer;
 async function main() {
+  const server = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
@@ -21075,4 +21083,8 @@ main().catch((err) => {
   console.error("Fatal error:", err);
   process.exit(1);
 });
+export {
+  createSandboxServer,
+  index_default as default
+};
 //# sourceMappingURL=module.js.map
