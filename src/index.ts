@@ -128,6 +128,159 @@ function createServer(): McpServer {
     }
   );
 
+  // --- verify_contractor_license ---
+  server.tool(
+    "verify_contractor_license",
+    "Verify a contractor's license across US states (CA, TX, FL, NY). Search by license number, person name, or business name. Returns license status, expiration, classifications, and contact info from official state licensing boards.",
+    {
+      state: z
+        .enum(["CA", "TX", "FL", "NY"])
+        .describe("US state code: CA (California CSLB), TX (Texas TDLR), FL (Florida DBPR), NY (New York City)"),
+      licenseNumber: z
+        .string()
+        .optional()
+        .describe('License number to look up (e.g. "1096738" for CA, "CGC1507744" for FL)'),
+      lastName: z
+        .string()
+        .optional()
+        .describe("Last name for person name search"),
+      firstName: z
+        .string()
+        .optional()
+        .describe("First name for person name search (optional)"),
+      businessName: z
+        .string()
+        .optional()
+        .describe("Business or company name to search for"),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(25)
+        .default(10)
+        .describe("Number of results to return (max 25)"),
+    },
+    async ({ state, licenseNumber, lastName, firstName, businessName, limit }) => {
+      const params = new URLSearchParams();
+      params.set("state", state);
+      params.set("limit", String(limit));
+      if (licenseNumber) params.set("licenseNumber", licenseNumber);
+      if (lastName) params.set("lastName", lastName);
+      if (firstName) params.set("firstName", firstName);
+      if (businessName) params.set("businessName", businessName);
+
+      const url = `${BACKEND_URL}/contractor-license/verify?${params.toString()}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }],
+        };
+      }
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
+      };
+    }
+  );
+
+  // --- psa_population_report ---
+  server.tool(
+    "psa_population_report",
+    "Look up PSA card certification details and full population report. Returns card info (year, brand, subject, grade) and complete grade breakdown from Auth through PSA 10, showing how many cards exist at each grade level.",
+    {
+      certNumber: z
+        .string()
+        .optional()
+        .describe('PSA certification number printed on the slab (e.g. "10000001")'),
+      specID: z
+        .number()
+        .int()
+        .optional()
+        .describe("PSA spec ID for direct population lookup (advanced, from cert lookup)"),
+    },
+    async ({ certNumber, specID }) => {
+      const params = new URLSearchParams();
+      if (certNumber) params.set("certNumber", certNumber);
+      if (specID) params.set("specID", String(specID));
+
+      const url = `${BACKEND_URL}/psa/pop?${params.toString()}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }],
+        };
+      }
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
+      };
+    }
+  );
+
+  // --- verify_nurse_license ---
+  server.tool(
+    "verify_nurse_license",
+    "Verify a nurse's license across US states (FL, NY). Search by license number or name. Returns license status, expiration, qualifications, and enforcement actions from official state nursing boards.",
+    {
+      state: z
+        .enum(["FL", "NY"])
+        .describe("US state code: FL (Florida DOH MQA), NY (New York NYSED)"),
+      licenseNumber: z
+        .string()
+        .optional()
+        .describe('License number to look up (e.g. "RN9414870" for FL, "825282" for NY)'),
+      lastName: z
+        .string()
+        .optional()
+        .describe("Last name for person name search"),
+      firstName: z
+        .string()
+        .optional()
+        .describe("First name for person name search (optional)"),
+      licenseType: z
+        .string()
+        .optional()
+        .describe("License type filter: RN, LPN, NP, APRN, CNA"),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(25)
+        .default(10)
+        .describe("Number of results to return (max 25)"),
+    },
+    async ({ state, licenseNumber, lastName, firstName, licenseType, limit }) => {
+      const params = new URLSearchParams();
+      params.set("state", state);
+      params.set("limit", String(limit));
+      if (licenseNumber) params.set("licenseNumber", licenseNumber);
+      if (lastName) params.set("lastName", lastName);
+      if (firstName) params.set("firstName", firstName);
+      if (licenseType) params.set("licenseType", licenseType);
+
+      const url = `${BACKEND_URL}/nurse-license/verify?${params.toString()}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.success) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: `Error: ${data.error}` }],
+        };
+      }
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
+      };
+    }
+  );
+
   return server;
 }
 

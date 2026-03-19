@@ -1,7 +1,7 @@
 {
   "name": "@lulzasaur9192/marketplace-search-mcp",
-  "version": "1.0.1",
-  "description": "MCP server for searching TCGPlayer trading cards, Reverb music gear, and Thumbtack local services",
+  "version": "1.1.1",
+  "description": "MCP server for marketplace search, price comparison, and license verification — TCGPlayer, Reverb, Thumbtack, PSA grading, contractor and nurse licenses",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -17,15 +17,27 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "model-context-protocol",
     "tcgplayer",
     "trading-cards",
+    "pokemon-cards",
+    "magic-the-gathering",
     "reverb",
     "music-gear",
     "thumbtack",
     "local-services",
     "marketplace",
-    "search"
+    "search",
+    "price-comparison",
+    "contractor-license",
+    "nurse-license",
+    "license-verification",
+    "psa-grading",
+    "web-scraping",
+    "data-extraction",
+    "claude",
+    "ai-tools"
   ],
   "author": "lulzasaur9192",
   "license": "MIT",
