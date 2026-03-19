@@ -1,0 +1,13 @@
+version: 1
+name: marketplace-search
+description: "Search trading cards (TCGPlayer), music gear (Reverb), and local service pros (Thumbtack) — all from one MCP server. Real-time prices, ratings, and listings."
+runtime: typescript
+entry: src/index.ts
+
+build:
+  install: npm ci
+  command: npm run build
+
+startCommand:
+  type: stdio
+  command: node dist/index.js

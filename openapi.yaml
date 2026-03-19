@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Marketplace Search API
+  description: |
+    Search across three major marketplaces with a single API:
+    - **TCGPlayer** — Trading card prices for Magic, Pokemon, Yu-Gi-Oh, Lorcana
+    - **Reverb** — Used and new music gear (guitars, amps, pedals, synths)
+    - **Thumbtack** — Local service professionals (plumbers, electricians, cleaners)
+
+    Real-time prices, ratings, and listings from each marketplace.
+  version: 1.0.0
+  contact:
+    name: lulzasaur
+    email: lulzasaur@users.noreply.github.com
+
+servers:
+  - url: https://rapidapi-backend-production.up.railway.app
+    description: Production server
+
+paths:
+  /tcgplayer/search:
+    get:
+      operationId: searchTCGPlayer
+      summary: Search trading card prices
+      description: Search TCGPlayer for trading card prices. Covers Magic the Gathering, Pokemon, Yu-Gi-Oh, Lorcana, and more. Returns market prices, lowest prices, listing counts, and card images.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Card name or search term
+          schema:
+            type: string
+          example: charizard
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return (max 50)
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 50
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /reverb/search:
+    get:
+      operationId: searchReverb
+      summary: Search music gear listings
+      description: Search Reverb.com for used and new music gear. Find guitars, amps, pedals, synths, and more. Returns prices, condition, seller info, and listing URLs.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Instrument or gear search term
+          schema:
+            type: string
+          example: gibson les paul
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return (max 50)
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 50
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /thumbtack/search:
+    get:
+      operationId: searchThumbtack
+      summary: Search local service professionals
+      description: Search Thumbtack for local service professionals. Find plumbers, electricians, cleaners, and 1000+ other service categories. Returns ratings, reviews, pricing, and hire counts.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Service category search term
+          schema:
+            type: string
+          example: plumbers
+        - name: location
+          in: query
+          required: false
+          description: City/state slug (e.g. san-francisco/ca). Omit for national results.
+          schema:
+            type: string
+          example: san-francisco/ca
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return (max 20)
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 20
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  timestamp:
+                    type: string
+                    format: date-time
+
+components:
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        query:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            type: object
+        error:
+          type: string
