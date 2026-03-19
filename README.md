@@ -5,6 +5,8 @@ MCP server for AI agents to search marketplaces, verify professional licenses, a
 [![npm](https://img.shields.io/npm/v/@lulzasaur9192/marketplace-search-mcp)](https://www.npmjs.com/package/@lulzasaur9192/marketplace-search-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+[![Marketplace Search MCP server](https://glama.ai/mcp/servers/lulzasaur9192/marketplace-search-mcp/badges/card.svg)](https://glama.ai/mcp/servers/lulzasaur9192/marketplace-search-mcp)
+
 ## Supported Data Sources
 
 | Tool | Source | Data |
