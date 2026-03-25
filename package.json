@@ -1,0 +1,75 @@
+{
+  "name": "@lulzasaur9192/marketplace-search-mcp",
+  "version": "2.0.0",
+  "mcpName": "io.github.lulzasaur9192/marketplace-search",
+  "description": "MCP server with 22 tools for marketplace search, price comparison, license verification, childcare costs, estate sales, storage pricing, GSA auctions, home services, FCC lookup, and AI skill safety — TCGPlayer, Reverb, Grailed, Redfin, Poshmark, Craigslist, and more",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "marketplace-search-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "marketplace",
+    "search",
+    "price-comparison",
+    "tcgplayer",
+    "reverb",
+    "grailed",
+    "redfin",
+    "poshmark",
+    "craigslist",
+    "offerup",
+    "swappa",
+    "stubhub",
+    "bonanza",
+    "thriftbooks",
+    "abebooks",
+    "goodreads",
+    "imdb",
+    "houzz",
+    "thumbtack",
+    "contractor-license",
+    "nurse-license",
+    "license-verification",
+    "psa-grading",
+    "nyc-violations",
+    "fcc-id",
+    "childcare-cost",
+    "estate-sales",
+    "self-storage",
+    "gsa-auctions",
+    "home-services",
+    "skillguard",
+    "ai-tools",
+    "claude"
+  ],
+  "author": "lulzasaur9192",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lulzasaur9192/marketplace-search-mcp.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "tsx": "^4.19.4",
+    "@types/node": "^22.15.3"
+  }
+}

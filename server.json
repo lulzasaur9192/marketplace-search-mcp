@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.lulzasaur9192/marketplace-search",
+  "description": "Search 15+ marketplaces, verify licenses, look up childcare costs, estate sales, storage pricing, GSA auctions, FCC IDs, and more — 22 tools for data-driven AI agents",
+  "repository": {
+    "url": "https://github.com/lulzasaur9192/marketplace-search-mcp",
+    "source": "github"
+  },
+  "version": "2.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@lulzasaur9192/marketplace-search-mcp",
+      "version": "2.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": []
+    }
+  ]
+}

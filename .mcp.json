@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "marketplace-search": {
+      "command": "npx",
+      "args": ["-y", "@lulzasaur9192/marketplace-search-mcp"]
+    }
+  }
+}
