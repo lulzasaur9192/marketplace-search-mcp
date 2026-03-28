@@ -75,6 +75,14 @@ curl -X POST https://rapidapi-backend-production.up.railway.app/mcp/register \
 
 Set `MARKETPLACE_API_KEY` env var for authenticated access.
 
+## Higher Rate Limits
+
+For higher rate limits and dedicated support, subscribe on RapidAPI:
+
+- [TCGPlayer Price Data](https://rapidapi.com/lulzasaur9192/api/tcgplayer-price-data?utm_source=npm&utm_medium=readme&utm_campaign=mcp-tcgplayer)
+- [Reverb Music Gear Listings](https://rapidapi.com/lulzasaur9192/api/reverb-music-gear-listings?utm_source=npm&utm_medium=readme&utm_campaign=mcp-reverb)
+- [Thumbtack Pro Directory](https://rapidapi.com/lulzasaur9192/api/thumbtack-pro-directory?utm_source=npm&utm_medium=readme&utm_campaign=mcp-thumbtack)
+
 ## License
 
 MIT
