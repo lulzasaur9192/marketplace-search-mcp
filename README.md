@@ -68,7 +68,7 @@ Add to your MCP config:
 Register for higher quotas:
 
 ```bash
-curl -X POST https://rapidapi-backend-production.up.railway.app/mcp/register \
+curl -X POST https://rapidapi-backend-production.up.railway.app/mcp/register?utm_source=github-readme&utm_medium=readme&utm_campaign=marketplace-search \
   -H "Content-Type: application/json" \
   -d '{"email":"you@example.com"}'
 ```
